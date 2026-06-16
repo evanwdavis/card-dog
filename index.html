@@ -195,96 +195,16 @@
       flex-shrink: 0;
     }
 
-    .phone-tilt-l { transform: rotate(-3deg); }
-    .phone-tilt-r { transform: rotate(3deg); }
-
     .phone-screen {
       position: relative;
       width: 100%;
       height: 100%;
       border-radius: 34px;
       overflow: hidden;
-      background: #cdeafa;
+      background: #0b1220;
     }
 
     .phone-screen > img { width: 100%; height: 100%; object-fit: cover; }
-
-    .phone-caption {
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 18px;
-      font-weight: 500;
-    }
-
-    /* Mockup game board (right phone) */
-    .board {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, #6fbbe2 0%, #a8dcf3 55%, #cdeafa 100%);
-      display: flex;
-      flex-direction: column;
-      padding: 0 14px 16px;
-    }
-
-    .board-status {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 11px;
-      font-weight: 600;
-      color: #0c2733;
-      padding: 14px 8px 0;
-    }
-    .board-status .sb-right { display: flex; gap: 5px; align-items: center; }
-
-    .board-hud {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 10px 4px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #0c2733;
-    }
-    .board-hud .chip {
-      background: rgba(255,255,255,0.6);
-      padding: 5px 11px;
-      border-radius: 20px;
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap;
-    }
-
-    .board-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-      flex: 1;
-      align-content: center;
-    }
-
-    .board-grid .cell {
-      aspect-ratio: 1;
-      border-radius: 11px;
-      overflow: hidden;
-      box-shadow: 0 3px 7px rgba(0,0,0,0.18);
-    }
-    .board-grid .cell img { width: 100%; height: 100%; object-fit: cover; }
-
-    .card-back {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(155deg, #9b7fd4 0%, #6a51a8 100%);
-      border: 1.5px solid rgba(255,255,255,0.35);
-      border-radius: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .card-back svg { width: 56%; height: 56%; color: rgba(255,255,255,0.9); }
 
     /* DECK gallery */
     .deck {
@@ -509,9 +429,8 @@
       .hero h1 { font-size: 36px; }
       .hero p { font-size: 16px; }
       .hero-icon { width: 96px; height: 96px; border-radius: 22px; }
-      .showcase { gap: 28px; margin-bottom: 90px; }
-      .phone { width: 220px; }
-      .phone-tilt-l, .phone-tilt-r { transform: none; }
+      .showcase { margin-bottom: 90px; }
+      .phone { width: 230px; }
       .deck-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .cta-box { padding: 48px 24px; }
       footer { flex-direction: column; text-align: center; }
@@ -543,48 +462,10 @@
   </section>
 
   <section class="showcase">
-    <div>
-      <div class="phone phone-tilt-l">
-        <div class="phone-screen">
-          <img src="assets/screenshot-menu.png" alt="Card Dog start screen on iPhone" />
-        </div>
+    <div class="phone">
+      <div class="phone-screen">
+        <img src="assets/screenshot-game.png" alt="Card Dog gameplay on iPhone — a board of cards to match" />
       </div>
-      <p class="phone-caption">Pick a mode and play</p>
-    </div>
-    <div>
-      <div class="phone phone-tilt-r">
-        <div class="phone-screen">
-          <div class="board" aria-hidden="true">
-            <div class="board-status">
-              <span>9:41</span>
-              <span class="sb-right">
-                <svg width="15" height="11" viewBox="0 0 16 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4" y="5" width="3" height="6" rx="1"/><rect x="8" y="2.5" width="3" height="8.5" rx="1"/><rect x="12" y="0" width="3" height="11" rx="1"/></svg>
-                <svg width="15" height="11" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.1 0 4 .8 5.4 2.1l1.3-1.4A10 10 0 0 0 8 .2 10 10 0 0 0 1.3 2.9l1.3 1.4A7.9 7.9 0 0 1 8 2.2Zm0 3.3c1.2 0 2.3.45 3.1 1.2l1.35-1.45A7 7 0 0 0 8 3.6a7 7 0 0 0-4.45 1.65L4.9 6.7A4.4 4.4 0 0 1 8 5.5Zm0 3.2c.62 0 1.18.25 1.6.66L8 11l-1.6-1.64c.42-.41.98-.66 1.6-.66Z"/></svg>
-                <svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="1" width="20" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2.5" width="17" height="7" rx="1.2" fill="currentColor"/><rect x="21.5" y="4" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
-              </span>
-            </div>
-            <div class="board-hud">
-              <span class="chip">⏱ 00:24</span>
-              <span class="chip">🎯 4 / 8 pairs</span>
-            </div>
-            <div class="board-grid">
-              <div class="cell"><img src="assets/cards/baking.png" alt="" /></div>
-              <div class="cell"><div class="card-back"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="4.6" ry="3.7"/><ellipse cx="6.2" cy="11.2" rx="2" ry="2.6"/><ellipse cx="10" cy="8.4" rx="2" ry="2.7"/><ellipse cx="14" cy="8.4" rx="2" ry="2.7"/><ellipse cx="17.8" cy="11.2" rx="2" ry="2.6"/></svg></div></div>
-              <div class="cell"><img src="assets/cards/sleeping.png" alt="" /></div>
-              <div class="cell"><div class="card-back"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="4.6" ry="3.7"/><ellipse cx="6.2" cy="11.2" rx="2" ry="2.6"/><ellipse cx="10" cy="8.4" rx="2" ry="2.7"/><ellipse cx="14" cy="8.4" rx="2" ry="2.7"/><ellipse cx="17.8" cy="11.2" rx="2" ry="2.6"/></svg></div></div>
-              <div class="cell"><img src="assets/cards/gaming.png" alt="" /></div>
-              <div class="cell"><div class="card-back"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="4.6" ry="3.7"/><ellipse cx="6.2" cy="11.2" rx="2" ry="2.6"/><ellipse cx="10" cy="8.4" rx="2" ry="2.7"/><ellipse cx="14" cy="8.4" rx="2" ry="2.7"/><ellipse cx="17.8" cy="11.2" rx="2" ry="2.6"/></svg></div></div>
-              <div class="cell"><div class="card-back"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="4.6" ry="3.7"/><ellipse cx="6.2" cy="11.2" rx="2" ry="2.6"/><ellipse cx="10" cy="8.4" rx="2" ry="2.7"/><ellipse cx="14" cy="8.4" rx="2" ry="2.7"/><ellipse cx="17.8" cy="11.2" rx="2" ry="2.6"/></svg></div></div>
-              <div class="cell"><img src="assets/cards/snowboarding.png" alt="" /></div>
-              <div class="cell"><div class="card-back"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="4.6" ry="3.7"/><ellipse cx="6.2" cy="11.2" rx="2" ry="2.6"/><ellipse cx="10" cy="8.4" rx="2" ry="2.7"/><ellipse cx="14" cy="8.4" rx="2" ry="2.7"/><ellipse cx="17.8" cy="11.2" rx="2" ry="2.6"/></svg></div></div>
-              <div class="cell"><img src="assets/cards/beach.png" alt="" /></div>
-              <div class="cell"><div class="card-back"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="4.6" ry="3.7"/><ellipse cx="6.2" cy="11.2" rx="2" ry="2.6"/><ellipse cx="10" cy="8.4" rx="2" ry="2.7"/><ellipse cx="14" cy="8.4" rx="2" ry="2.7"/><ellipse cx="17.8" cy="11.2" rx="2" ry="2.6"/></svg></div></div>
-              <div class="cell"><div class="card-back"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="4.6" ry="3.7"/><ellipse cx="6.2" cy="11.2" rx="2" ry="2.6"/><ellipse cx="10" cy="8.4" rx="2" ry="2.7"/><ellipse cx="14" cy="8.4" rx="2" ry="2.7"/><ellipse cx="17.8" cy="11.2" rx="2" ry="2.6"/></svg></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="phone-caption">Flip cards, find the pairs</p>
     </div>
   </section>
 
