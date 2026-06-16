@@ -227,25 +227,39 @@
       margin: 0 auto;
     }
 
-    .deck-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-      margin-top: 44px;
+    .deck-fan {
+      position: relative;
+      height: clamp(280px, 42vw, 380px);
+      margin-top: 36px;
     }
 
-    .deck-card {
+    .fan-card {
+      position: absolute;
+      left: 50%;
+      bottom: 4%;
+      width: clamp(116px, 16vw, 168px);
       aspect-ratio: 1;
+      margin-left: calc(clamp(116px, 16vw, 168px) / -2);
+      background: #fff;
+      padding: 7px;
       border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-      border: 1px solid var(--border);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      transform-origin: 50% 165%;
+      transform: rotate(var(--angle));
+      transition: transform 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s;
+      cursor: pointer;
     }
-    .deck-card img { width: 100%; height: 100%; object-fit: cover; }
-    .deck-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 26px rgba(0,0,0,0.16);
+    .fan-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    .fan-card:hover {
+      transform: rotate(var(--angle)) translateY(-26px) scale(1.06);
+      box-shadow: 0 20px 36px rgba(0,0,0,0.26);
+      z-index: 20;
     }
 
     /* FEATURES */
@@ -420,10 +434,6 @@
 
     footer nav a:hover { color: var(--text); }
 
-    @media (max-width: 900px) {
-      .deck-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
     @media (max-width: 600px) {
       .hero { padding: 56px 1.5rem 48px; }
       .hero h1 { font-size: 36px; }
@@ -431,7 +441,13 @@
       .hero-icon { width: 96px; height: 96px; border-radius: 22px; }
       .showcase { margin-bottom: 90px; }
       .phone { width: 230px; }
-      .deck-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      /* Tighter fan so the arc fits a narrow screen without clipping */
+      .deck-fan { height: 230px; margin-top: 20px; }
+      .fan-card {
+        width: 118px;
+        margin-left: -59px;
+        transform-origin: 50% 210%;
+      }
       .cta-box { padding: 48px 24px; }
       footer { flex-direction: column; text-align: center; }
     }
@@ -472,24 +488,18 @@
   <section class="deck">
     <div class="deck-head">
       <h2>Meet Dexter</h2>
-      <p>Every card is a hand-illustrated Dexter adventure — from baking to snowboarding to making new friends.</p>
+      <p>Every card is a hand-illustrated Dexter adventure — baking, snowboarding, making new friends, and a dozen more to discover in the deck.</p>
     </div>
-    <div class="deck-grid">
-      <div class="deck-card"><img src="assets/cards/reading.png" alt="Dexter reading a book" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/coffee.png" alt="Dexter making coffee" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/gaming.png" alt="Dexter gaming" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/music.png" alt="Dexter making music" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/snowboarding.png" alt="Dexter snowboarding" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/sleeping.png" alt="Dexter sleeping" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/traveling.png" alt="Dexter traveling" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/friends.png" alt="Dexter making friends with a cat" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/hiking.png" alt="Dexter hiking" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/celebrating.png" alt="Dexter celebrating with fireworks" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/beach.png" alt="Dexter at the beach" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/dancing.png" alt="Dexter dancing" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/painting.png" alt="Dexter painting" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/gardening.png" alt="Dexter gardening" loading="lazy" /></div>
-      <div class="deck-card"><img src="assets/cards/baking.png" alt="Dexter baking" loading="lazy" /></div>
+    <div class="deck-fan">
+      <div class="fan-card" style="--angle:-32deg"><img src="assets/cards/reading.png" alt="Dexter reading a book" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:-24deg"><img src="assets/cards/snowboarding.png" alt="Dexter snowboarding" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:-16deg"><img src="assets/cards/gaming.png" alt="Dexter gaming" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:-8deg"><img src="assets/cards/music.png" alt="Dexter making music" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:0deg"><img src="assets/cards/baking.png" alt="Dexter baking" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:8deg"><img src="assets/cards/friends.png" alt="Dexter making friends with a cat" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:16deg"><img src="assets/cards/celebrating.png" alt="Dexter celebrating with fireworks" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:24deg"><img src="assets/cards/dancing.png" alt="Dexter dancing" loading="lazy" /></div>
+      <div class="fan-card" style="--angle:32deg"><img src="assets/cards/beach.png" alt="Dexter at the beach" loading="lazy" /></div>
     </div>
   </section>
 
