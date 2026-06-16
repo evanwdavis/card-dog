@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card Dog — Memory Card Game</title>
+  <meta name="description" content="Card Dog is a delightful memory card matching game for iPhone, iPad, and Mac. Flip cards, find pairs, and train your memory with adorable dogs." />
+  <meta property="og:title" content="Card Dog — Memory Card Game" />
+  <meta property="og:description" content="A delightful memory card game featuring adorable dogs. Available on iOS, iPadOS, and macOS." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --border: rgba(0,0,0,0.08);
+      --accent: #2c5f2e;
+      --accent-light: #e8f0e9;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .nav-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .nav-cta {
+      background: var(--text);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.75; }
+
+    /* HERO */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 100px 2rem 80px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 64px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--text);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    .btn-primary:hover { opacity: 0.75; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--muted);
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .btn-secondary:hover { border-color: rgba(0,0,0,0.2); color: var(--text); }
+
+    /* CARD PREVIEW */
+    .preview {
+      max-width: 900px;
+      margin: 0 auto 100px;
+      padding: 0 2rem;
+    }
+
+    .card-grid-demo {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .demo-card {
+      aspect-ratio: 3/4;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s;
+      cursor: default;
+    }
+
+    .demo-card:hover { transform: translateY(-3px); }
+
+    .demo-card.face-down {
+      background: var(--accent);
+      font-size: 18px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .demo-card.matched {
+      background: var(--accent-light);
+      border-color: var(--accent);
+    }
+
+    .demo-card:nth-child(1)  { background: #fff; }
+    .demo-card:nth-child(2)  { background: var(--accent); color: rgba(255,255,255,0.3); }
+    .demo-card:nth-child(3)  { background: #fff; }
+    .demo-card:nth-child(4)  { background: var(--accent); color: rgba(255,255,255,0.3); }
+    .demo-card:nth-child(5)  { background: var(--accent); color: rgba(255,255,255,0.3); }
+    .demo-card:nth-child(6)  { background: var(--accent-light); border-color: var(--accent); }
+    .demo-card:nth-child(7)  { background: var(--accent); color: rgba(255,255,255,0.3); }
+    .demo-card:nth-child(8)  { background: var(--accent-light); border-color: var(--accent); }
+
+    /* FEATURES */
+    .features {
+      max-width: 900px;
+      margin: 0 auto 100px;
+      padding: 0 2rem;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .feature {
+      background: var(--surface);
+      padding: 32px 28px;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* PLATFORMS */
+    .platforms {
+      max-width: 900px;
+      margin: 0 auto 100px;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .platforms h2 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .platforms > p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+
+    .platform-pills {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .pill span { font-size: 20px; }
+
+    /* CTA */
+    .cta-section {
+      max-width: 640px;
+      margin: 0 auto 100px;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .cta-box {
+      background: var(--text);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 64px 40px;
+    }
+
+    .cta-box h2 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .cta-box p {
+      color: rgba(255,255,255,0.6);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    .btn-white:hover { opacity: 0.85; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0 auto;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer nav {
+      position: static;
+      background: none;
+      border: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      padding: 0;
+      height: auto;
+      gap: 24px;
+    }
+
+    footer nav a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    footer nav a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 72px 1.5rem 60px; }
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 16px; }
+      .card-grid-demo { max-width: 280px; gap: 8px; }
+      .demo-card { font-size: 22px; }
+      .cta-box { padding: 48px 24px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-icon">🐶</div>
+      Card Dog
+    </div>
+    <a href="#download" class="nav-cta">Download</a>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">Memory Card Game</div>
+    <h1>Train your brain.<br /><em>Pet the dogs.</em></h1>
+    <p>Card Dog is a delightful memory card matching game featuring adorable dogs. Flip, match, and earn your pats.</p>
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Coming to the App Store
+      </a>
+      <a href="#features" class="btn-secondary">Learn more</a>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="card-grid-demo" aria-hidden="true">
+      <div class="demo-card">🐕</div>
+      <div class="demo-card face-down">?</div>
+      <div class="demo-card">🐩</div>
+      <div class="demo-card face-down">?</div>
+      <div class="demo-card face-down">?</div>
+      <div class="demo-card matched">🦮</div>
+      <div class="demo-card face-down">?</div>
+      <div class="demo-card matched">🦮</div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <p class="section-label">Features</p>
+    <div class="features-grid">
+      <div class="feature">
+        <span class="feature-icon">🐾</span>
+        <h3>Adorable dogs</h3>
+        <p>A cast of charming pups to discover and match, with more breeds added over time.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🧠</span>
+        <h3>Sharpens memory</h3>
+        <p>Classic concentration gameplay that trains focus and recall in a fun, low-pressure way.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📐</span>
+        <h3>Multiple grid sizes</h3>
+        <p>From quick 4×3 rounds to challenging 6×5 grids — pick your difficulty and go.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🏆</span>
+        <h3>Personal bests</h3>
+        <p>Track your best times and fewest moves. Every game is a chance to beat yourself.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🌙</span>
+        <h3>Dark mode</h3>
+        <p>Looks great day or night, following your system appearance automatically.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">✨</span>
+        <h3>No ads, no nonsense</h3>
+        <p>A clean, focused game with no interruptions. Just you and the dogs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="platforms">
+    <h2>One game, every Apple device</h2>
+    <p>Card Dog is a universal purchase — buy once, play everywhere.</p>
+    <div class="platform-pills">
+      <div class="pill"><span>📱</span> iPhone</div>
+      <div class="pill"><span>⬛</span> iPad</div>
+      <div class="pill"><span>💻</span> Mac</div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="download">
+    <div class="cta-box">
+      <h2>Ready to play?</h2>
+      <p>Card Dog is coming soon to the App Store. Check back here for the link when it launches.</p>
+      <a href="#" class="btn-white">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.5 8.5c-.01-1.38.63-2.39 1.93-3.14C12.65 4.03 11.6 3.5 10.25 3.5c-1.28 0-2.13.74-2.75.74-.65 0-1.59-.71-2.63-.69C3.3 3.58 1.75 4.67 1.75 6.92c0 2.25 1.62 5.83 2.3 5.83.41 0 1.62-1.25 2.2-1.25.6 0 1.52 1.25 1.99 1.25.47 0 1.2-.96 1.73-2.19.51-.02.98-.17 1.37-.48-.74-.37-1.83-1.34-1.84-3.58Z" fill="currentColor"/><path d="M9.75 1.5c.42-.54.74-1.25.63-2C9.63-.44 8.84.1 8.36.7c-.45.57-.73 1.26-.64 1.97.75.06 1.58-.4 2.03-1.17Z" fill="currentColor"/></svg>
+        App Store — Coming Soon
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Card Dog. All rights reserved.</p>
+    <nav>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:evan.wingfield@me.com">Contact</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
