@@ -92,14 +92,6 @@
       text-align: center;
     }
 
-    .hero-icon {
-      width: 116px;
-      height: 116px;
-      border-radius: 26px;
-      margin: 0 auto 28px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
-    }
-
     .badge {
       display: inline-block;
       background: var(--accent-light);
@@ -212,27 +204,7 @@
 
     .phone-screen > img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* DECK gallery */
-    .deck {
-      max-width: 1040px;
-      margin: 0 auto 110px;
-      padding: 0 2rem;
-    }
-
-    .deck-head { text-align: center; margin-bottom: 14px; }
-    .deck-head h2 {
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-    .deck-head p {
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
+    /* Card fan */
     .deck-fan {
       position: relative;
       height: clamp(280px, 42vw, 380px);
@@ -266,6 +238,17 @@
       transform: rotate(var(--angle)) translateY(-26px) scale(1.06);
       box-shadow: 0 20px 36px rgba(0,0,0,0.26);
       z-index: 20;
+    }
+
+    /* Hero version of the fan (replaces the app icon) */
+    .hero-fan {
+      height: clamp(210px, 30vw, 300px);
+      max-width: 620px;
+      margin: 0 auto clamp(44px, 6vw, 64px);
+    }
+    .hero-fan .fan-card {
+      width: clamp(102px, 13.5vw, 148px);
+      margin-left: calc(clamp(102px, 13.5vw, 148px) / -2);
     }
 
     /* FEATURES */
@@ -444,7 +427,6 @@
       .hero { padding: 56px 1.5rem 48px; }
       .hero h1 { font-size: 36px; }
       .hero p { font-size: 16px; }
-      .hero-icon { width: 96px; height: 96px; border-radius: 22px; }
       .showcase { margin-bottom: 90px; }
       .phone { width: 230px; }
       /* Tighter fan so the arc fits a narrow screen without clipping */
@@ -470,7 +452,17 @@
   </nav>
 
   <section class="hero">
-    <img class="hero-icon" src="assets/icon-512.png" alt="Card Dog app icon — Dexter the Australian Shepherd" />
+    <div class="deck-fan hero-fan">
+      <div class="fan-card" style="--angle:-32deg"><img src="assets/cards/reading.png" alt="Dexter reading a book" /></div>
+      <div class="fan-card" style="--angle:-24deg"><img src="assets/cards/snowboarding.png" alt="Dexter snowboarding" /></div>
+      <div class="fan-card" style="--angle:-16deg"><img src="assets/cards/gaming.png" alt="Dexter gaming" /></div>
+      <div class="fan-card" style="--angle:-8deg"><img src="assets/cards/music.png" alt="Dexter making music" /></div>
+      <div class="fan-card" style="--angle:0deg"><img src="assets/cards/baking.png" alt="Dexter baking" /></div>
+      <div class="fan-card" style="--angle:8deg"><img src="assets/cards/friends.png" alt="Dexter making friends with a cat" /></div>
+      <div class="fan-card" style="--angle:16deg"><img src="assets/cards/celebrating.png" alt="Dexter celebrating with fireworks" /></div>
+      <div class="fan-card" style="--angle:24deg"><img src="assets/cards/dancing.png" alt="Dexter dancing" /></div>
+      <div class="fan-card" style="--angle:32deg"><img src="assets/cards/beach.png" alt="Dexter at the beach" /></div>
+    </div>
     <h1>Card Dog<em>a Memory Match Game</em></h1>
     <p>Card Dog is a memory matching game starring Dexter the Australian Shepherd. Flip the cards and find the pairs!</p>
     <div class="hero-actions">
@@ -486,24 +478,6 @@
       <div class="phone-screen">
         <img src="assets/screenshot-game.png" alt="Card Dog gameplay on iPhone — a board of cards to match" />
       </div>
-    </div>
-  </section>
-
-  <section class="deck">
-    <div class="deck-head">
-      <h2>Meet Dexter</h2>
-      <p>Every card is a hand-illustrated Dexter adventure — baking, snowboarding, making new friends, and a dozen more to discover in the deck.</p>
-    </div>
-    <div class="deck-fan">
-      <div class="fan-card" style="--angle:-32deg"><img src="assets/cards/reading.png" alt="Dexter reading a book" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:-24deg"><img src="assets/cards/snowboarding.png" alt="Dexter snowboarding" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:-16deg"><img src="assets/cards/gaming.png" alt="Dexter gaming" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:-8deg"><img src="assets/cards/music.png" alt="Dexter making music" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:0deg"><img src="assets/cards/baking.png" alt="Dexter baking" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:8deg"><img src="assets/cards/friends.png" alt="Dexter making friends with a cat" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:16deg"><img src="assets/cards/celebrating.png" alt="Dexter celebrating with fireworks" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:24deg"><img src="assets/cards/dancing.png" alt="Dexter dancing" loading="lazy" /></div>
-      <div class="fan-card" style="--angle:32deg"><img src="assets/cards/beach.png" alt="Dexter at the beach" loading="lazy" /></div>
     </div>
   </section>
 
